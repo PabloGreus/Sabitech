@@ -3,7 +3,7 @@ Create DATABASE Sabitech;
 use Sabitech;
 
 create table usuarios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     correo VARCHAR(100) UNIQUE NOT NULL,
     contraseña VARCHAR(255) NOT NULL,
@@ -11,10 +11,24 @@ create table usuarios (
 );
 
 create table usuarios_admin (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_admin INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     correo VARCHAR(100) UNIQUE NOT NULL,
     contraseña VARCHAR(255) NOT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+);
+
+create table tockens_qr (
+
+);
+
+create table charlas (
+    id_usuario INT NOT NULL,
+    id_charla INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(100) NOT NULL,
+    descripcion TEXT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    estado Enum(proximamente, en_curso, finalizada, cancelada) default 'proximamente',
     
 );
