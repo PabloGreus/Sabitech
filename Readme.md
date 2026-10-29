@@ -5,3 +5,12 @@
 <p align="center">
   <img src="assets/Logo_xtart_.jpg" width="200" />
 </p>
+
+#### Conexion docker
+
+- acceso por terminal al servidor
+  docker exec -it ubuntu_apache bash
+- ssh:
+  ssh admin@localhost -p 2222
+- conexion con la base de datos
+  docker exec -it base_datos mysql -u root -p

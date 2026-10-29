@@ -1,16 +1,36 @@
 services:
-  mysql:
+  web:
+    build: ./web
+    container_name: ubuntu_apache
+    ports:
+      - "8080:80" # Web -> http://localhost:8080
+      - "2222:22" # SSH -> ssh admin@localhost -p 2222
+    volumes:
+      - ./www:/var/www/html
+      - apache_config:/etc/apache2
+    depends_on:
+      - db
+    networks:
+      - red_interna
+
+  db:
     image: mysql:8.0
-    container_name: Sabitech_db
-    restart: always
+    container_name: base_datos
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: sa_aodbvfe-tech_ñ@
       MYSQL_DATABASE: Sabitech
       MYSQL_USER: admin
-      MYSQL_PASSWORD: adm1n/sabisdoibgwpidnwÇñ"tech/645
+      MYSQL_PASSWORD: wqdopgihqnwpigdnqwirgÇ@ñÑ
+    volumes:
+      - db_data:/var/lib/mysql
     ports:
       - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
+    networks:
+      - red_interna
+networks:
+  red_interna:
+
 volumes:
-  mysql_data:
+  db_data:
+  apache_config:
