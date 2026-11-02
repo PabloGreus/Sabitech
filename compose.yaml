@@ -11,10 +11,10 @@ services:
   db:
     image: mysql:8.4
     environment:
-      MYSQL_DATABASE: sabiteck
-      MYSQL_USER: sabiteck_user
-      MYSQL_PASSWORD: Aula_Sabiteck_2026
-      MYSQL_ROOT_PASSWORD: Aula_Root_2026
+      MYSQL_DATABASE: sabitech
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: sa_aodbvfe-tech_ñ@
+      MYSQL_ROOT_PASSWORD: wqdopgihqnwpigdnqwirgÇ@ñÑ
     volumes:
       - mysql_data:/var/lib/mysql
 
