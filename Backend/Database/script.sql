@@ -7,7 +7,9 @@ create table usuarios (
     nombre VARCHAR(100) NOT NULL,
     correo VARCHAR(100) UNIQUE NOT NULL,
     contraseña VARCHAR(255) NOT NULL,
+    rol enum('usuario', 'ponente', 'personal_de_acceso') default 'usuario',
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,   
+
 );
 
 create table usuarios_admin (
@@ -17,12 +19,6 @@ create table usuarios_admin (
     contraseña VARCHAR(255) NOT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     
-);
-
-create table usuario_ponente(
-    id_ponente INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    biografia TEXT NOT NULL,
 );
 
 create table tockens_qr (
