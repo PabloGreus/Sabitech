@@ -139,3 +139,17 @@ DELIMITER ;
 
 
 --------------------Claves-foraneas--------------------------
+---------FK----charlas-----------------------
+ALTER TABLE charlas
+    ADD CONSTRAINT fk_charlas_ponente FOREIGN KEY (id_usuario)
+        REFERENCES usuarios(id_usuario)      ON UPDATE CASCADE ON DELETE RESTRICT,
+    ADD CONSTRAINT fk_charlas_sala    FOREIGN KEY (id_sala)
+        REFERENCES salas(id_sala)            ON UPDATE CASCADE ON DELETE RESTRICT,
+    ADD CONSTRAINT fk_charlas_admin   FOREIGN KEY (id_admin)
+        REFERENCES usuarios_admin(id_admin)  ON UPDATE CASCADE ON DELETE RESTRICT;
+---------FK----Reservas-----------------------
+ALTER TABLE Reservas
+    ADD CONSTRAINT fk_reservas_usuario FOREIGN KEY (id_usuario)
+        REFERENCES usuarios(id_usuario) ON UPDATE CASCADE ON DELETE CASCADE,
+    ADD CONSTRAINT fk_reservas_charla  FOREIGN KEY (id_charla)
+        REFERENCES charlas(id_charla)   ON UPDATE CASCADE ON DELETE CASCADE;
