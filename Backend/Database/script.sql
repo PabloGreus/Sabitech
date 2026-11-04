@@ -27,11 +27,13 @@ create table tockens_qr (
 
 create table charlas (
     id_usuario INT NOT NULL,
+    id_sala INT NOT NULL,
+    id_admin INT NOT NULL,
     id_charla INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
     descripcion TEXT NOT NULL,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    estado Enum(proximamente, en_curso, finalizada, cancelada) default 'proximamente',
+    estado Enum('proximamente', 'en_curso', 'finalizada', 'cancelada') default 'proximamente',
     
 );
 
@@ -40,7 +42,7 @@ create table Reservas (
     id_usuario INT NOT NULL,
     id_charla INT NOT NULL,
     fecha_reserva TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    estado Enum(confirmada, cancelada) default 'confirmada',
+    estado Enum('confirmada', 'cancelada') default 'confirmada',
     
 );
 
@@ -137,12 +139,3 @@ DELIMITER ;
 
 
 --------------------Claves-foraneas--------------------------
-Alter table charlas (
-    CONSTRAINT fk_charlas_admin   FOREIGN KEY (id_admin)   REFERENCES usuarios_admin(id_admin),
-    CONSTRAINT fk_charlas_sala    FOREIGN KEY (id_sala)    REFERENCES salas(id_sala),
-    CONSTRAINT fk_charlas_ponente FOREIGN KEY (id_ponente) REFERENCES usuarios(id_usuario)
-);
-Alter table reservas (
-    CONSTRAINT fk_reservas_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
-    CONSTRAINT fk_reservas_charla  FOREIGN KEY (id_charla)  REFERENCES charlas(id_charla)
-);
