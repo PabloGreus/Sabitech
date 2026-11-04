@@ -20,7 +20,7 @@ create table usuarios_admin (
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     
 );
-
+-------por implementar----------------------
 create table tockens_qr (
     tokens_id
 );
@@ -53,6 +53,7 @@ create table salas (
     
 );
 
+----------Por implementar-----------------------------------------------
 create table asisitencias (
     id_asistencia INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
@@ -133,3 +134,15 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+
+--------------------Claves-foraneas--------------------------
+Alter table charlas (
+    CONSTRAINT fk_charlas_admin   FOREIGN KEY (id_admin)   REFERENCES usuarios_admin(id_admin),
+    CONSTRAINT fk_charlas_sala    FOREIGN KEY (id_sala)    REFERENCES salas(id_sala),
+    CONSTRAINT fk_charlas_ponente FOREIGN KEY (id_ponente) REFERENCES usuarios(id_usuario)
+);
+Alter table reservas (
+    CONSTRAINT fk_reservas_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+    CONSTRAINT fk_reservas_charla  FOREIGN KEY (id_charla)  REFERENCES charlas(id_charla)
+);
