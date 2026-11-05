@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 400" width="100%" height="100%">
+  <defs>
+    <!-- Degradado corporativo para la X y el texto Sabitech -->
+    <linearGradient id="sabitech-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3ACFD5" />
+      <stop offset="35%" stop-color="#6B5CE7" />
+      <stop offset="70%" stop-color="#D6249F" />
+      <stop offset="100%" stop-color="#FF4B4B" />
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(50, 60)">
+    <!-- Icono X -->
+    <g id="logo-x-icon">
+      <!-- Brazo izquierdo de la X -->
+      <path d="M 15 20 L 75 20 L 135 140 L 75 260 L 15 260 L 75 140 Z" fill="url(#sabitech-grad)" />
+      <!-- Brazo derecho de la X -->
+      <path d="M 215 20 L 275 20 L 215 140 L 275 260 L 215 260 L 155 140 Z" fill="url(#sabitech-grad)" />
+    </g>
+
+    <!-- Línea divisora sutil -->
+    <line x1="315" y1="40" x2="315" y2="240" stroke="#E2E8F0" stroke-width="2" />
+
+    <!-- Texto Sabitech -->
+    <text x="355" y="195" font-family="system-ui, -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, &#39;Helvetica Neue&#39;, Arial, sans-serif" font-size="145" font-weight="600" letter-spacing="-2.5" fill="url(#sabitech-grad)">Sabitech</text>
+
+    <!-- Subtexto del centro -->
+    <text x="360" y="245" font-family="system-ui, -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, &#39;Helvetica Neue&#39;, Arial, sans-serif" font-size="28" font-weight="500" letter-spacing="0.5" fill="#334155">XTART Formación Profesional</text>
+  </g>
+</svg>
