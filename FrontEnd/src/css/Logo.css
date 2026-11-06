@@ -1,0 +1,17 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.logo__img {
+  height: 2rem; /* controla el tamaño; el ancho se ajusta solo */
+  width: auto;
+}
+
+.logo span {
+  color: #2dd4bf;
+}
