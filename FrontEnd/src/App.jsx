@@ -1,11 +1,13 @@
-import Navegacion from "./components/Navegacion";
+import Header from "./components/Header";
+import "./css/App.css";
+import Logo from "./components/logo";
 
 export default function App() {
   return (
     <>
-      <Navegacion />
+      <Header />
       <main>
-        <h1 id="innicio">Bienvenido a SABITECH WEB</h1>
+        <h1 id="inicio">Bienvenido a SABITECH WEB</h1>
       </main>
     </>
   );

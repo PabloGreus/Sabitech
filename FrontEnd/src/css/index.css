@@ -6,24 +6,25 @@ body {
   font-family: system-ui, sans-serif;
 }
 
-.navegacion {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.5rem;
   background: #0f172a;
-  color: white;
   position: relative;
 }
-.navegacion__logo {
+
+.logo {
   color: white;
   font-weight: 700;
   text-decoration: none;
 }
-.navegacion__logo span {
+.logo span {
   color: #2dd4bf;
 }
-.navegacion__toggle {
+
+.header__toggle {
   background: none;
   border: 0;
   color: white;
@@ -31,7 +32,7 @@ body {
   cursor: pointer;
 }
 
-.navegacion__menu {
+.minimenu {
   display: none;
   position: absolute;
   top: 100%;
@@ -39,31 +40,30 @@ body {
   right: 0;
   background: #0f172a;
 }
-.navegacion__menu--abierto {
+.minimenu--abierto {
   display: block;
 }
-.navegacion__menu ul {
+.minimenu ul {
   list-style: none;
   margin: 0;
   padding: 1rem 1.5rem;
 }
-.navegacion__menu a {
+.minimenu a {
   color: white;
   text-decoration: none;
   display: block;
   padding: 0.5rem 0;
 }
 
-/* Escritorio: menú siempre visible, sin botón */
 @media (min-width: 768px) {
-  .navegacion__toggle {
+  .header__toggle {
     display: none;
   }
-  .navegacion__menu {
+  .minimenu {
     display: block;
     position: static;
   }
-  .navegacion__menu ul {
+  .minimenu ul {
     display: flex;
     gap: 1.5rem;
     padding: 0;
