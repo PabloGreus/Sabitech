@@ -11,7 +11,19 @@ class CharlaController extends Controller
      */
     public function index()
     {
-        //
+     $charlas = DB::table('charlas')
+        ->select(
+            'id_charla', 
+            'titulo', 
+            'descripcion', 
+            'ponente', 
+            'fecha',
+            'estado'
+            )
+        ->orderBy('id_charla')   
+        ->get();
+        
+        return response()->json($charlas, 200);
     }
 
     /**
