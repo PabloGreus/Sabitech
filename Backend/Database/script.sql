@@ -94,6 +94,9 @@ DELIMITER ;
 --------Añade un usuario administrador a la tabla usuarios_admin-----------------------
 DELIMITER $$
 
+
+-----Por-implementar-----------------
+
 CREATE PROCEDURE sp_crear_administrador(
     IN  p_nombre      VARCHAR(100),
     IN  p_correo      VARCHAR(150),
