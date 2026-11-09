@@ -15,14 +15,16 @@ class CharlaController extends Controller
     public function index(): jsonResponse
     {
      $charlas = DB::table('charlas')
+        ->join('usuarios', 'charlas.id_usuario', '=', 'usuarios.id_usuario')
         ->select(
-            'id_charla', 
-            'titulo', 
-            'descripcion',  
-            'fecha',
-            'estado'
-            )
-        ->orderBy('id')   
+            'charlas.id_charla',
+            'charlas.titulo',
+            'charlas.descripcion',
+            'usuarios.nombre as ponente',
+            'charlas.fecha',
+            'charlas.estado'
+        )
+        ->orderBy('charlas.id_charla')
         ->get();
         
         return response()->json($charlas, 200);
