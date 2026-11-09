@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
+use App\Http\Controllers\api\Controller;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CharlaController extends Controller
@@ -9,18 +12,17 @@ class CharlaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): jsonResponse
     {
      $charlas = DB::table('charlas')
         ->select(
             'id_charla', 
             'titulo', 
-            'descripcion', 
-            'ponente', 
+            'descripcion',  
             'fecha',
             'estado'
             )
-        ->orderBy('id_charla')   
+        ->orderBy('id')   
         ->get();
         
         return response()->json($charlas, 200);
