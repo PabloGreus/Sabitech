@@ -37,4 +37,40 @@ class AuthController extends Controller
             ],
         ], 200);
     }
+
+    public function register(Request $request): JsonResponse
+    {
+        // 1. Comprobar que llegan los datos
+        $request->validate([
+            'nombre'     => 'required|string|max:255',
+            'correo'     => 'required|string|email|max:255',
+            'contraseña' => 'required|string|min:6',
+        ]);
+
+        // 2. Comprobar si el correo ya está registrado
+        $usuarioExistente = DB::table('usuarios')
+            ->where('correo', $request->correo)
+            ->first();
+
+        if ($usuarioExistente) {
+            return response()->json(['message' => 'El correo ya se encuentra registrado.'], 422);
+        }
+
+        // 3. Insertar el nuevo usuario con la contraseña hasheada
+        $idUsuario = DB::table('usuarios')->insertGetId([
+            'nombre'     => $request->nombre,
+            'correo'     => $request->correo,
+            'contraseña' => Hash::make($request->contraseña),
+        ]);
+
+        // 4. Todo bien: devolver los datos del usuario creado
+        return response()->json([
+            'message' => 'Usuario registrado con éxito.',
+            'user' => [
+                'id'     => $idUsuario,
+                'nombre' => $request->nombre,
+                'email'  => $request->correo,
+            ],
+        ], 201);
+    }
 }

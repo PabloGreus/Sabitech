@@ -6,3 +6,4 @@ use App\Http\Controllers\api\AuthController;
 
 Route::get('/charlas', [CharlaController::class, 'index']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
