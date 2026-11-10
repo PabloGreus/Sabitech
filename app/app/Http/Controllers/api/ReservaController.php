@@ -1,64 +1,105 @@
 <?php
+namespace App\Http\Controllers\api;
 
-namespace App\Http\Controllers;
-
+use App\Http\Controllers\api\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReservaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Mostrar las charlas reservadas por un usuario.
      */
-    public function index()
+    public function reserva(string $id_usuario): JsonResponse
     {
-        //
+        $reservas = DB::table('reservas')
+            ->join(
+                'charlas',
+                'reservas.id_charla',
+                '=',
+                'charlas.id_charla'
+            )
+            ->join(
+                'usuarios as ponentes',
+                'charlas.id_usuario',
+                '=',
+                'ponentes.id_usuario'
+            )
+            ->where('reservas.id_usuario', $id_usuario)
+            ->select(
+                'reservas.id_reserva',
+                'reservas.fecha as fecha_reserva',
+                'charlas.id_charla',
+                'charlas.titulo',
+                'charlas.descripcion',
+                'charlas.fecha as fecha_charla',
+                'charlas.estado',
+                'ponentes.nombre as ponente'
+            )
+            ->orderBy('reservas.fecha', 'desc')
+            ->get();
+
+        return response()->json($reservas, 200);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Reservar una charla.
      */
-    public function create()
+    public function ReservarCharla(Request $request): JsonResponse
     {
-        //
+        $request->validate([
+            'id_usuario' => 'required|exists:usuarios,id_usuario',
+            'id_charla' => 'required|exists:charlas,id_charla'
+        ]);
+
+        // Comprobar si el usuario ya ha reservado esta charla.
+        $existe = DB::table('reservas')
+            ->where('id_usuario', $request->id_usuario)
+            ->where('id_charla', $request->id_charla)
+            ->exists();
+
+        if ($existe) {
+            return response()->json([
+                'mensaje' => 'Ya tienes reservada esta charla.'
+            ], 409);
+        }
+
+        // Insertar la reserva.
+        $id_reserva = DB::table('reservas')->insertGetId([
+            'id_usuario' => $request->id_usuario,
+            'id_charla' => $request->id_charla,
+            'fecha' => now()
+        ]);
+
+        return response()->json([
+            'mensaje' => 'Reserva realizada correctamente.',
+            'id_reserva' => $id_reserva
+        ], 201);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Cancelar una reserva.
      */
-    public function store(Request $request)
+    public function cancelarReserva(Request $request, string $id): JsonResponse
     {
-        //
-    }
+        $request->validate([
+            'id_usuario' => 'required|exists:usuarios,id_usuario'
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $eliminada = DB::table('reservas')
+            ->where('id_reserva', $id)
+            ->where('id_usuario', $request->id_usuario)
+            ->delete();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        if (!$eliminada) {
+            return response()->json([
+                'mensaje' => 'Reserva no encontrada.'
+            ], 404);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json([
+            'mensaje' => 'Reserva cancelada correctamente.'
+        ], 200);
     }
 }
