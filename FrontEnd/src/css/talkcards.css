@@ -1,0 +1,65 @@
+.charlas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  font-family: system-ui, sans-serif;
+}
+
+.charla {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.charla h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+.charla p {
+  margin: 0;
+}
+.charla-ponente {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.charla-descripcion {
+  color: #555;
+  font-size: 0.9rem;
+}
+.charla-fecha {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.charla-pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.charla-estado {
+  font-size: 0.85rem;
+  color: #17653f;
+}
+
+.charla button {
+  background: #5546d8;
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+.charla button:hover {
+  background: #3f32b5;
+}
+
+.charla-error {
+  color: #a4192b;
+}
