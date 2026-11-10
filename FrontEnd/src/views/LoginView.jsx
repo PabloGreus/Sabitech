@@ -14,7 +14,7 @@ export default function Login({ onSuccess }) {
     e.preventDefault();
     setError("");
     setEnviando(true);
-
+    console.log("Enviando login:", correo, contrasena);
     try {
       const res = await fetch(LOGIN_ENDPOINT, {
         method: "POST",
@@ -25,6 +25,7 @@ export default function Login({ onSuccess }) {
         body: JSON.stringify({ correo, contraseña: contrasena }),
       });
       const data = await res.json().catch(() => ({}));
+      console.log("Respuesta del login:", res.status, data);
 
       if (!res.ok) {
         // 401 = credenciales incorrectas · 422 = faltan campos (Laravel manda { errors: {...} })
@@ -33,7 +34,7 @@ export default function Login({ onSuccess }) {
           : data.message;
         throw new Error(detalle || `Error ${res.status}`);
       }
-
+      console.log("Login correcto:", data);
       const usuario = data.user ?? data;
       localStorage.setItem("user", JSON.stringify(usuario));
       if (data.token) localStorage.setItem("token", data.token);
