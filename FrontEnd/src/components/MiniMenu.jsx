@@ -9,10 +9,17 @@ export default function MiniMenu({ enlaces, abierto, onNavegar }) {
       aria-label="Navegación principal"
     >
       <ul>
-        {enlaces.map((enlace) => (
-          <li key={enlace.href}>
-            <a href={enlace.href} onClick={onNavegar}>
-              {enlace.texto}
+        {enlaces.map((e) => (
+          <li key={e.texto}>
+            <a
+              href="#"
+              onClick={(ev) => {
+                ev.preventDefault();
+                e.onClick?.();
+                onNavegar();
+              }}
+            >
+              {e.texto}
             </a>
           </li>
         ))}
