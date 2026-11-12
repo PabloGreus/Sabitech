@@ -22,7 +22,11 @@ export default function App() {
 
   return (
     <>
-      <Header />
+      <Header
+        onIrALogin={() => setVista("login")}
+        onIrARegistro={() => setVista("register")}
+        onIrACharlas={() => setVista("talks")}
+      />
 
       {vista === "login" && (
         <LoginView

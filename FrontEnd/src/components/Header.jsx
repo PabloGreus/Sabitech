@@ -3,15 +3,14 @@ import Logo from "../assets/Logo.svg";
 import MiniMenu from "./MiniMenu";
 import "../css/Header.css";
 
-const enlaces = [
-  { texto: "Inicio", href: "#inicio" },
-  { texto: "Charlas", href: "#charlas" },
-  { texto: "Cómo funciona", href: "#funciones" },
-  { texto: "Reservar", href: "#reservar" },
-];
-
-export default function Header() {
+export default function Header({ onIrALogin, onIrARegistro, onIrACharlas }) {
   const [abierto, setAbierto] = useState(false);
+
+  const enlaces = [
+    { texto: "Iniciar sesión", onClick: onIrALogin },
+    { texto: "Registrarse", onClick: onIrARegistro },
+    { texto: "Charlas", onClick: onIrACharlas },
+  ];
 
   return (
     <header className="header">
