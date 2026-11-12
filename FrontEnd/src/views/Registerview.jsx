@@ -4,7 +4,7 @@ import "../css/Login.css"; // Puedes reutilizar o adaptar tus estilos de login
 const REGISTER_ENDPOINT = "http://localhost:8080/api/register";
 
 // Props opcional: onSuccess(usuario) se ejecuta cuando el registro es correcto
-export default function Register({ onSuccess }) {
+export default function Register({ onSuccess, onIrALogin }) {
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
@@ -94,6 +94,12 @@ export default function Register({ onSuccess }) {
       <button type="submit" disabled={enviando}>
         {enviando ? "Registrando…" : "Registrarse"}
       </button>
+      <p>
+        ¿Ya tienes cuenta?{" "}
+        <button type="button" onClick={onIrALogin}>
+          Inicia sesión
+        </button>
+      </p>
     </form>
   );
 }
