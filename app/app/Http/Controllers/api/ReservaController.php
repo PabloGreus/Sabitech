@@ -46,7 +46,7 @@ class ReservaController extends Controller
     /**
      * Reservar una charla.
      */
-    public function ReservarCharla(Request $request): JsonResponse
+    public function ReservaCharla(Request $request): JsonResponse
     {
         $request->validate([
             'id_usuario' => 'required|exists:usuarios,id_usuario',
