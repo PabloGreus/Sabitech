@@ -15,7 +15,9 @@ export default function App() {
 
   const irA = (destino) => {
     const necesitaSesion = ["talks", "reservar", "misreservas"];
+    console.log(`[irA] Destino: "${destino}" · ¿hay sesión?:`, haySesion());
     if (necesitaSesion.includes(destino) && !haySesion()) {
+      console.log("[irA] Sin sesión, redirigiendo a login");
       setVista("login");
     } else {
       setVista(destino);
@@ -30,6 +32,7 @@ export default function App() {
   };
 
   const elegirCharla = (charla) => {
+    console.log("[2] App recibe la charla elegida:", charla);
     setCharlaSeleccionada(charla);
     irA("reservar");
   };

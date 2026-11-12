@@ -9,6 +9,7 @@ export default function ReservarView({ charla, onVolver, onVerReservas }) {
   const [mensaje, setMensaje] = useState("");
   const [error, setError] = useState("");
   const [hecha, setHecha] = useState(false);
+  console.log("[3] ReservarView renderizada. Charla:", charla);
 
   if (!charla) {
     return (
@@ -20,10 +21,12 @@ export default function ReservarView({ charla, onVolver, onVerReservas }) {
   }
 
   const confirmar = async () => {
+    console.log("[4] Clic en Confirmar reserva");
     setError("");
     setMensaje("");
 
     const id_usuario = getUserId();
+    console.log("[5] id_usuario obtenido:", id_usuario);
     if (!id_usuario) {
       setError("No se ha encontrado tu usuario. Vuelve a iniciar sesión.");
       return;
@@ -43,8 +46,10 @@ export default function ReservarView({ charla, onVolver, onVerReservas }) {
         }),
       });
       const data = await res.json().catch(() => ({}));
+      console.log("[7] Respuesta del servidor:", res.status, data);
 
       if (res.ok) {
+        console.log("[8] Reserva creada. id_reserva:", data.id_reserva);
         setMensaje(data.mensaje || "Reserva realizada correctamente.");
         setHecha(true);
       } else if (res.status === 409) {
@@ -58,6 +63,7 @@ export default function ReservarView({ charla, onVolver, onVerReservas }) {
       setError("No hay conexión con el servidor.");
     } finally {
       setEnviando(false);
+      console.log("[9] Fin del proceso de reserva");
     }
   };
 
