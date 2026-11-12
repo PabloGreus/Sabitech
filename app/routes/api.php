@@ -11,4 +11,4 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/reserva', [ReservaController::class, 'reserva']);
 Route::get('/reserva/{id_usuario}', [ReservaController::class, 'reserva']);
 Route::post('/ReservaCharla', [ReservaController::class, 'ReservaCharla']);
-Route::delete('/reserva', [ReservaController::class, 'cancelarReserva']);
+Route::delete('/cancelarReserva/{id_reserva}', [ReservaController::class, 'cancelarReserva']);
