@@ -4,7 +4,7 @@ import "../css/Login.css";
 const LOGIN_ENDPOINT = "http://localhost:8080/api/login";
 
 // Props opcional: onSuccess(usuario) se ejecuta cuando el login es correcto
-export default function Login({ onSuccess }) {
+export default function Login({ onSuccess, onIrARegistro }) {
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [error, setError] = useState("");
@@ -83,6 +83,12 @@ export default function Login({ onSuccess }) {
       <button type="submit" disabled={enviando}>
         {enviando ? "Entrando…" : "Entrar"}
       </button>
+      <p>
+        ¿No tienes cuenta?{" "}
+        <button type="button" onClick={onIrARegistro}>
+          Regístrate
+        </button>
+      </p>
     </form>
   );
 }
