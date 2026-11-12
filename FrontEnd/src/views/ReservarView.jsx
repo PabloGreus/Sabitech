@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { formatFecha } from "./Talkcards";
+import { getUserId } from "../utils/session";
 
 const API_URL = "http://localhost:8080/api";
 
@@ -22,8 +23,8 @@ export default function ReservarView({ charla, onVolver, onVerReservas }) {
     setError("");
     setMensaje("");
 
-    const user = JSON.parse(localStorage.getItem("user") || "null");
-    if (!user?.id_usuario) {
+    const id_usuario = getUserId();
+    if (!id_usuario) {
       setError("No se ha encontrado tu usuario. Vuelve a iniciar sesión.");
       return;
     }
@@ -37,7 +38,7 @@ export default function ReservarView({ charla, onVolver, onVerReservas }) {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          id_usuario: user.id_usuario,
+          id_usuario,
           id_charla: charla.id_charla,
         }),
       });
