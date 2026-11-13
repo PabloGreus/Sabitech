@@ -1,34 +1,74 @@
-.minimenu {
+/* Móvil: desplegable debajo del header */
+.header .minimenu {
   display: none;
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  background: #0f172a;
-}
-.minimenu--abierto {
-  display: block;
-}
-.minimenu ul {
-  list-style: none;
-  margin: 0;
-  padding: 1rem 1.5rem;
-}
-.minimenu a {
-  color: white;
-  text-decoration: none;
-  display: block;
-  padding: 0.5rem 0;
+  z-index: 50;
+  background: var(--color-header, #4a5a82);
+  box-shadow: 0 10px 20px rgba(30, 41, 80, 0.25);
 }
 
+.header .minimenu--abierto {
+  display: block;
+}
+
+.header .minimenu ul {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem 1rem;
+  list-style: none;
+}
+
+.header .minimenu a,
+.header .minimenu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+/* Botón cerrar sesión dentro del menú */
+.header .minimenu button.btn-logout {
+  margin-top: 0.5rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  text-align: center;
+}
+
+.header .minimenu button.btn-logout:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Escritorio: menú en línea */
 @media (min-width: 768px) {
-  .minimenu {
-    display: block;
-    position: static;
+  .header .minimenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: #4a5a82 !important; /* fondo sólido, igual que el header */
+    box-shadow: 0 10px 20px rgba(30, 41, 80, 0.25);
   }
-  .minimenu ul {
-    display: flex;
-    gap: 1.5rem;
+
+  .header .minimenu ul {
+    flex-direction: row;
+    align-items: center;
     padding: 0;
+  }
+
+  .header .minimenu a,
+  .header .minimenu button {
+    display: inline-block;
+    width: auto;
+  }
+
+  .header .minimenu button.btn-logout {
+    margin: 0 0 0 0.5rem;
   }
 }

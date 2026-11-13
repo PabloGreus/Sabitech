@@ -2,9 +2,65 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem;
-  background: #0f172a;
+  padding: 0.9rem 1.5rem;
+  background: var(--color-header, #4a5a82);
+  box-shadow: 0 2px 6px rgba(30, 41, 80, 0.2);
   position: relative;
+}
+
+/* Quita cualquier fondo oscuro heredado del menú */
+.header nav,
+.header ul,
+.header li,
+.header [class*="nav"],
+.header [class*="menu"] {
+  background: transparent;
+}
+
+.header nav,
+.header ul {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Enlaces / botones del menú */
+.header nav a,
+.header nav button,
+.header li a,
+.header li button {
+  display: inline-block;
+  padding: 0.5rem 0.95rem;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #eef2fb;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.header nav a:hover,
+.header nav button:hover:not(:disabled),
+.header li a:hover,
+.header li button:hover:not(:disabled) {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.header nav a:focus-visible,
+.header nav button:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: 2px;
 }
 
 .header__toggle {
