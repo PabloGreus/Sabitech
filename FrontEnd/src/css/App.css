@@ -181,3 +181,50 @@ button:disabled {
     transition: none !important;
   }
 }
+.header {
+  position: relative;
+  z-index: 100;
+}
+
+.header .minimenu {
+  background-color: #4a5a82 !important;
+  z-index: 100;
+}
+
+.header .minimenu a,
+.header .minimenu button {
+  color: #fff !important;
+}
+
+@media (min-width: 768px) {
+  .header .minimenu {
+    background-color: transparent !important;
+  }
+}
+@media (min-width: 768px) {
+  .header .minimenu {
+    display: block !important;
+    position: static !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .header .minimenu ul {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 !important;
+  }
+
+  .header .minimenu a,
+  .header .minimenu button {
+    display: inline-block;
+    width: auto;
+    color: #fff !important;
+  }
+
+  .header__toggle {
+    display: none;
+  }
+}
