@@ -1,6 +1,12 @@
 name: sabiteck-despliegue
 
 services:
+  frontend:
+    build: .
+    ports:
+      - "127.0.0.1:5173:80"
+    volumes:
+      - ./app:/var/www/html
   web:
     build: .
     ports:
