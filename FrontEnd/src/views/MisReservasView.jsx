@@ -1,3 +1,4 @@
+import { getUserId } from "../utils/session";
 import { useEffect, useState } from "react";
 import { formatFecha } from "./Talkcards";
 
@@ -13,20 +14,31 @@ export default function MisReservasView({ onIrACharlas }) {
   const [error, setError] = useState("");
 
   const cargar = async () => {
-    const user = getUser();
-    if (!user?.id_usuario) {
+    const id_usuario = getUserId();
+
+    console.log("Usuario obtenido:", id_usuario);
+
+    if (!id_usuario) {
       setError("No se ha encontrado tu usuario. Vuelve a iniciar sesión.");
       setCargando(false);
       return;
     }
+
     try {
-      const res = await fetch(`${API_URL}/reserva/${user.id_usuario}`, {
-        headers: { Accept: "application/json" },
+      const res = await fetch(`${API_URL}/reserva/${id_usuario}`, {
+        headers: {
+          Accept: "application/json",
+        },
       });
-      if (!res.ok) throw new Error();
-      setReservas(await res.json());
-    } catch {
-      setError("No se han podido cargar tus reservas.");
+
+      if (!res.ok) {
+        throw new Error("Error al cargar las reservas");
+      }
+
+      const data = await res.json();
+      setReservas(data);
+    } catch (err) {
+      setError(err.message || "No se han podido cargar tus reservas.");
     } finally {
       setCargando(false);
     }
@@ -46,7 +58,7 @@ export default function MisReservasView({ onIrACharlas }) {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({ id_usuario: user.id_usuario }),
+        body: JSON.stringify({ id_usuario: id_usuario }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.mensaje || `Error ${res.status}`);

@@ -54,6 +54,7 @@ export default function ReservarView({ charla, onVolver, onVerReservas }) {
         setHecha(true);
       } else if (res.status === 409) {
         setError(data.mensaje || "Ya tienes reservada esta charla.");
+        setHecha(true);
       } else if (data.errors) {
         setError(Object.values(data.errors).flat().join(" "));
       } else {
@@ -86,13 +87,10 @@ export default function ReservarView({ charla, onVolver, onVerReservas }) {
       )}
       {mensaje && <p role="status">{mensaje}</p>}
 
-      {!hecha ? (
-        <button onClick={confirmar} disabled={enviando}>
-          {enviando ? "Reservando…" : "Confirmar reserva"}
-        </button>
-      ) : (
-        <button onClick={onVerReservas}>Ver mis reservas</button>
-      )}
+      <button onClick={confirmar} disabled={enviando}>
+        {enviando ? "Reservando…" : "Confirmar reserva"}
+      </button>
+      <button onClick={onVerReservas}>Ver mis reservas</button>
       <button type="button" onClick={onVolver}>
         Volver a las charlas
       </button>
