@@ -12,7 +12,9 @@ export default function MisReservasView({ onIrACharlas }) {
   const [reservas, setReservas] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
-
+  const [asistenciasConfirmadas, setAsistenciasConfirmadas] = useState([]);
+  const [confirmando, setConfirmando] = useState(false);
+  const [mensaje, setMensaje] = useState("");
   const cargar = async () => {
     const id_usuario = getUserId();
 
@@ -50,7 +52,9 @@ export default function MisReservasView({ onIrACharlas }) {
 
   const cancelar = async (id_reserva) => {
     setError("");
-    const user = getUser();
+    setMensaje("");
+    const id_usuario = getUserId();
+
     try {
       const res = await fetch(`${API_URL}/cancelarReserva/${id_reserva}`, {
         method: "DELETE",
@@ -58,7 +62,7 @@ export default function MisReservasView({ onIrACharlas }) {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({ id_usuario: id_usuario }),
+        body: JSON.stringify({ id_usuario }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.mensaje || `Error ${res.status}`);
@@ -68,11 +72,56 @@ export default function MisReservasView({ onIrACharlas }) {
     }
   };
 
+  const confirmarAsistencia = async (id_charla) => {
+    setError("");
+    setMensaje("");
+
+    const id_usuario = getUserId();
+    if (!id_usuario) {
+      setError("No se ha encontrado tu usuario.");
+      return;
+    }
+
+    setConfirmando(true);
+    try {
+      const res = await fetch(`${API_URL}/asistencias`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ id_usuario, id_charla }),
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        throw new Error(
+          data.mensaje ||
+            data.message ||
+            "No se ha podido confirmar la asistencia.",
+        );
+      }
+
+      setMensaje("¡Asistencia confirmada correctamente!");
+      setAsistenciasConfirmadas((prev) => [...prev, id_charla]);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setConfirmando(false);
+    }
+  };
+
   if (cargando) return <p>Cargando tus reservas…</p>;
 
   return (
     <section className="reservas">
       <h2>Mis reservas</h2>
+      {mensaje && <p role="status">{mensaje}</p>}
+      {error && (
+        <p className="login-error" role="alert">
+          {error}
+        </p>
+      )}
 
       {error && (
         <p className="login-error" role="alert">
@@ -92,10 +141,26 @@ export default function MisReservasView({ onIrACharlas }) {
             <p className="charla-descripcion">{r.descripcion}</p>
             <p className="charla-fecha">{formatFecha(r.fecha_charla)}</p>
             <p>Reservada el {formatFecha(r.fecha_reserva)}</p>
+
             <div className="charla-pie">
               <span className="charla-estado">{r.estado}</span>
+
               <button type="button" onClick={() => cancelar(r.id_reserva)}>
                 Cancelar reserva
+              </button>
+
+              <button
+                type="button"
+                onClick={() => confirmarAsistencia(r.id_charla)}
+                disabled={
+                  confirmando || asistenciasConfirmadas.includes(r.id_charla)
+                }
+              >
+                {asistenciasConfirmadas.includes(r.id_charla)
+                  ? "Asistencia confirmada"
+                  : confirmando
+                    ? "Confirmando..."
+                    : "Confirmar asistencia"}
               </button>
             </div>
           </article>
