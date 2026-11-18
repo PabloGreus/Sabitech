@@ -3,7 +3,6 @@ import "../css/Login.css";
 
 const LOGIN_ENDPOINT = "http://localhost:8080/api/login";
 
-// Props opcional: onSuccess(usuario) se ejecuta cuando el login es correcto
 export default function Login({ onSuccess, onIrARegistro }) {
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
